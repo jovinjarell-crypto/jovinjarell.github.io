@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PawnPub | Premium AI Chess & Training Hub</title>
+    <title>PawnPub | Global AI & Multiplayer Chess Hub</title>
     
-    <!-- External Engines and Board Renderers -->
     <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
@@ -14,7 +13,6 @@
     <style>
         /* THEME VARIABLES LOGIC MAP */
         :root {
-            /* Default Dark Mode Theme Constants */
             --bg-darkest: #0e1114;
             --bg-panel: #161b22;
             --bg-panel-light: #21262d;
@@ -27,7 +25,6 @@
         }
 
         [data-theme="light"] {
-            /* Dynamic Light Mode Theme Switches */
             --bg-darkest: #f6f8fa;
             --bg-panel: #ffffff;
             --bg-panel-light: #f3f4f6;
@@ -65,9 +62,6 @@
 
         .brand-zone {
             padding: 0 24px 30px 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .brand-zone h1 {
@@ -78,13 +72,7 @@
             letter-spacing: -0.5px;
         }
 
-        [data-theme="light"] .brand-zone h1 {
-            color: #24292f;
-        }
-
-        .brand-zone h1 span {
-            color: var(--accent-gold);
-        }
+        .brand-zone h1 span { color: var(--accent-gold); }
 
         .nav-links {
             display: flex;
@@ -112,15 +100,9 @@
             color: var(--text-bright);
         }
 
-        .nav-item.active {
-            border-left: 4px solid var(--accent-gold);
-        }
+        .nav-item.active { border-left: 4px solid var(--accent-gold); }
 
-        /* THEME TOGGLE ZONE AT THE BOTTOM */
-        .theme-toggle-zone {
-            padding: 0 15px;
-            margin-top: auto;
-        }
+        .theme-toggle-zone { padding: 0 15px; }
 
         .toggle-btn {
             width: 100%;
@@ -135,14 +117,9 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s ease;
         }
 
-        .toggle-btn:hover {
-            background-color: var(--border-color);
-        }
-
-        /* CONTAINER VIEWS */
+        /* VIEWPORT CONFIG */
         .viewport {
             flex: 1;
             padding: 30px;
@@ -151,21 +128,14 @@
             background: radial-gradient(circle at 80% 20%, var(--radial-glow) 0%, transparent 50%);
         }
 
-        .view-section {
-            display: none;
-            animation: fadeIn 0.3s ease-in-out forwards;
-        }
-
-        .view-section.active {
-            display: block;
-        }
+        .view-section { display: none; animation: fadeIn 0.3s ease forwards; }
+        .view-section.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* PLAY ARENA GRID STYLE */
         .arena-grid {
             display: grid;
             grid-template-columns: minmax(400px, 600px) 1fr;
@@ -175,23 +145,14 @@
         .board-card {
             background-color: var(--bg-panel);
             border-radius: 12px;
-            padding: 16px;
+            padding: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            transition: background-color 0.3s, border-color 0.3s;
         }
 
-        #pawn-board {
-            width: 100%;
-            border-radius: 6px;
-            overflow: hidden;
-        }
+        #pawn-board { width: 100%; border-radius: 6px; overflow: hidden; }
 
-        .action-bar {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
+        .action-bar { display: flex; gap: 10px; margin-top: 15px; }
 
         .btn {
             background-color: var(--bg-panel-light);
@@ -201,140 +162,72 @@
             font-weight: 600;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
-        .btn-prime {
-            background-color: var(--accent-green);
-            border-color: var(--accent-green);
-            color: white;
-        }
+        .btn-prime { background-color: var(--accent-green); border-color: var(--accent-green); color: white; }
 
-        [data-theme="light"] .btn-prime {
-            color: white;
-        }
-
-        .btn-prime:hover { opacity: 0.9; }
-
-        /* ACHIEVEMENT PROGRESS PATH MAP */
-        .tree-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .tree-node {
+        /* PROFILE INTERFACE STYLES */
+        .profile-card {
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            transition: border 0.3s, transform 0.2s, background-color 0.3s;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 550px;
+            text-align: center;
         }
 
-        .tree-node.unlocked {
-            border-left: 5px solid var(--accent-gold);
-        }
-
-        .tree-node.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .node-details h4 {
-            margin: 0 0 5px 0;
-            color: var(--text-main);
-        }
-
-        .badge-anim {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #ff9900, #ffcc00);
+        .avatar-circle {
+            width: 90px;
+            height: 90px;
+            background: var(--accent-gold);
+            color: #0e1114;
+            font-size: 2.2rem;
+            font-weight: 800;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: #0e1114;
-            animation: float 3s ease-in-out infinite;
+            margin: 0 auto 20px auto;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .video-embed {
-            margin-top: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            max-width: 560px;
-        }
-
-        /* SOUND HUB STYLING */
-        .audio-dashboard {
-            background: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            max-width: 600px;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .audio-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        /* STREAMS PANEL */
-        .coach-grid {
+        .stats-row {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
         }
 
-        .coach-card {
-            background: var(--bg-panel);
-            border: 1px solid var(--border-color);
+        .stat-box {
+            background: var(--bg-darkest);
+            padding: 15px;
             border-radius: 8px;
-            overflow: hidden;
-            transition: background-color 0.3s, border-color 0.3s;
+            border: 1px solid var(--border-color);
         }
 
-        .stream-placeholder {
-            background: var(--bg-panel-light);
-            height: 160px;
+        .stat-box h5 { margin: 0 0 5px 0; color: #8b949e; }
+        .stat-box p { margin: 0; font-size: 1.4rem; font-weight: bold; color: var(--text-bright); }
+
+        /* AUTH FORMS */
+        .auth-form {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin-top: 20px;
         }
 
-        .live-tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #da3637;
-            color: white;
-            padding: 2px 6px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            border-radius: 4px;
+        .auth-form input {
+            background: var(--bg-darkest);
+            color: var(--text-bright);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- APPLICATION SIDEBAR MENU -->
     <nav class="sidebar">
         <div>
             <div class="brand-zone">
@@ -342,13 +235,12 @@
             </div>
             <div class="nav-links">
                 <div class="nav-item active" onclick="switchView('play-view', this)">⚔️ Play Arena</div>
+                <div class="nav-item" onclick="switchView('profile-view', this)">👤 Player Profile</div>
                 <div class="nav-item" onclick="switchView('path-view', this)">🎯 Trajectory Tree</div>
-                <div class="nav-item" onclick="switchView('audio-view', this)">🎵 Concentration Audio</div>
-                <div class="nav-item" onclick="switchView('coach-view', this)">📹 Coach Streams</div>
+                <div class="nav-item" onclick="switchView('audio-view', this)">🎵 Focus Audio</div>
             </div>
         </div>
 
-        <!-- THEME INTERACTIVE CONTROL BUTTON -->
         <div class="theme-toggle-zone">
             <button class="toggle-btn" onclick="toggleTheme()">
                 <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
@@ -356,242 +248,126 @@
         </div>
     </nav>
 
-    <!-- CONTENT ENGINE PANELS -->
     <main class="viewport">
 
-        <!-- PANEL A: PLAY ARENA -->
         <section id="play-view" class="view-section active">
-            <h2>Live Arena Sandbox</h2>
+            <h2>Global Matchmaking Arena</h2>
             <div class="arena-grid">
                 <div class="board-card">
                     <div id="pawn-board"></div>
                     <div class="action-bar">
-                        <button class="btn btn-prime" onclick="resetLiveGame()">New Match</button>
+                        <button class="btn btn-prime" onclick="resetLiveGame()">Find Opponent</button>
                         <button class="btn" onclick="board.flip()">Flip Board</button>
                     </div>
                 </div>
-                <div>
-                    <div class="board-card" style="height: 100%;">
-                        <h3>Live Profile Evaluation</h3>
-                        <p style="font-size: 0.9rem; color: #8b949e;">Play games to allow the tracking matrix to define your core playstyle properties.</p>
-                        <div style="background:var(--bg-darkest); padding:15px; border-radius:6px; border:1px solid var(--border-color);">
-                            <strong>Games Processed:</strong> <span id="game-counter-ui" style="color: var(--accent-gold);">0</span> / 10 Games Completed
-                            <div style="background:var(--bg-panel-light); width:100%; height:8px; border-radius:4px; margin-top:10px; overflow:hidden;">
-                                <div id="progress-bar-fill" style="background: var(--accent-gold); width: 0%; height: 100%; transition: width 0.4s;"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="board-card">
+                    <h3>Match Monitor</h3>
+                    <p style="font-size: 0.9rem; color: #8b949e;">Connect an authenticated player identity profile to track globally ranked Elo achievements.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PANEL B: AI TRAJECTORY TRAINING PATH -->
+        <section id="profile-view" class="view-section">
+            <h2>Global Identity Matrix</h2>
+            <p style="color: #8b949e; margin-bottom: 25px;">Register your universal profile using your email to save chess statistics permanently.</p>
+
+            <div id="auth-logged-out" class="board-card" style="max-width: 500px;">
+                <h3>Create Account / Sign In</h3>
+                <div class="auth-form">
+                    <input type="email" id="player-email" placeholder="Enter your email address">
+                    <input type="password" id="player-password" placeholder="Choose secure account password">
+                    <button class="btn btn-prime" onclick="simulateAuthAction('signup')">Create Chess Identity</button>
+                    <button class="btn" onclick="simulateAuthAction('login')">Sign In to Existing Account</button>
+                </div>
+            </div>
+
+            <div id="auth-logged-in" class="profile-card" style="display: none;">
+                <div class="avatar-circle" id="profile-avatar">P</div>
+                <h3 id="profile-username" style="margin: 0; color: var(--text-bright);">Grandmaster Candidate</h3>
+                <p id="profile-email-text" style="color: #8b949e; margin: 5px 0 0 0;">player@pawnpub.com</p>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <h5>Global Elo Rating</h5>
+                        <p id="profile-elo">1200</p>
+                    </div>
+                    <div class="stat-box">
+                        <h5>Rank Standing</h5>
+                        <p>International</p>
+                    </div>
+                </div>
+                <button class="btn" style="margin-top: 25px; width: 100%; border-color: #da3637; color: #da3637;" onclick="simulateAuthAction('logout')">Disconnect Profile</button>
+            </div>
+        </section>
+
         <section id="path-view" class="view-section">
-            <h2>Your Custom Trajectory Mastery Tree</h2>
-            <p style="color: #8b949e; margin-bottom: 25px;">Forged automatically based on your tactical games evaluation data trends.</p>
-            
-            <div class="tree-container">
-                <div class="tree-node unlocked">
-                    <div class="node-details">
-                        <h4>Day 1 Milestone: The Central Outpost Control</h4>
-                        <p style="margin: 5px 0; font-size: 0.9rem; color:#8b949e;">Mastering tactical knight anchors and space preservation rules.</p>
-                        <span style="color: var(--text-bright); font-size: 0.85rem; font-weight: 600;">Status: Active Progress Target</span>
-                        
-                        <!-- Video Recommendation Asset Node -->
-                        <div class="video-embed">
-                            <iframe width="100%" height="240" src="https://www.youtube.com/embed/A3S8SgR8Yp8" title="Chess Openings" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="badge-anim">🏆</div>
-                </div>
-
-                <div class="tree-node locked">
-                    <div class="node-details">
-                        <h4>Day 2 Milestone: Structural King-Side Infiltration</h4>
-                        <p style="margin: 5px 0; font-size: 0.9rem;">Unlocks once style profiling maps your targeted attack thresholds.</p>
-                    </div>
-                    <div>🔒</div>
-                </div>
-            </div>
+            <h2>Your Trajectory Tree</h2>
+            <p style="color: #8b949e;">Requires an active chess profile link to track goals.</p>
         </section>
 
-        <!-- PANEL C: COGNITIVE AUDIO SYSTEM -->
         <section id="audio-view" class="view-section">
             <h2>Concentration Sound Engine</h2>
-            <p style="color: #8b949e;">Boost pattern storage and memory validation processing speeds using precise waves.</p>
-            
-            <div class="audio-dashboard">
-                <div class="audio-row">
-                    <div>
-                        <strong>Alpha-Wave Lo-Fi Sandbox Channel</strong><br>
-                        <span style="font-size:0.85rem; color:#8b949e;">Streaming constant ambient focus rhythm loop nodes.</span>
-                    </div>
-                    <button class="btn" onclick="toggleSystemTrack('lofi')">Stream Audio</button>
-                </div>
-                
-                <!-- Custom Upload System Engine -->
-                <div style="margin-top: 30px; padding: 20px; border: 2px dashed var(--border-color); border-radius: 8px; text-align: center;">
-                    <strong style="color: var(--text-main);">Want custom background noise tracks?</strong><br>
-                    <p style="font-size:0.85rem; color:#8b949e; margin: 5px 0 15px 0;">Upload standard local audio files straight to memory storage structures.</p>
-                    <input type="file" id="user-audio-file" accept="audio/*" style="display:none;" onchange="loadUserAudio(this)">
-                    <button class="btn btn-prime" onclick="document.getElementById('user-audio-file').click()">Select .MP3 File From Device</button>
-                    <div id="file-status-monitor" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-gold);"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PANEL D: STREAMING AND COACH APPOINTMENTS -->
-        <section id="coach-view" class="view-section">
-            <h2>PawnPub Live Masterclass Hub</h2>
-            <p style="color: #8b949e; margin-bottom: 25px;">Sign up for direct tactical lessons with master trainers via integrated portals.</p>
-            
-            <div class="coach-grid">
-                <div class="coach-card">
-                    <div class="stream-placeholder">
-                        <div class="live-tag">LIVE MATCH ANALYSIS</div>
-                        <span style="color: #8b949e;">Trainer Active: Master Miller</span>
-                    </div>
-                    <div style="padding: 15px;">
-                        <h4 style="margin:0 0 5px 0; color: var(--text-main);">Tactical Dynamic Trajectories</h4>
-                        <p style="font-size:0.85rem; margin:0 0 15px 0; color:#8b949e;">Interactive lesson streaming loops on active master database positions.</p>
-                        <button class="btn btn-prime" style="width:100%;">Connect to Classroom</button>
-                    </div>
-                </div>
-            </div>
         </section>
 
     </main>
 
-    <!-- Native Synthetic Audio Nodes Layer -->
-    <audio id="synthetic-audio-node" loop></audio>
-
     <script>
         var board = null;
         var game = new Chess();
-        var completedGamesCount = 0;
 
-        // THEME MANAGEMENT MATRIX
+        // SIMULATED SECURE EMAIL LOGOUT ENGINE 
+        // This handles UI adjustments right now. Later, you hook this straight up to Google Firebase.
+        function simulateAuthAction(action) {
+            const email = document.getElementById('player-email').value;
+            
+            if (action === 'signup' || action === 'login') {
+                if (!email || !email.includes('@')) {
+                    alert("Please enter a valid chess registration email address.");
+                    return;
+                }
+                
+                // Transition UI states smoothly to authorized view
+                document.getElementById('auth-logged-out').style.display = 'none';
+                document.getElementById('auth-logged-in').style.display = 'block';
+                
+                // Dynamically build user metrics cards
+                document.getElementById('profile-email-text').innerText = email;
+                const visualUsername = email.split('@')[0].toUpperCase();
+                document.getElementById('profile-username').innerText = "PRO_PLAYER_" + visualUsername;
+                document.getElementById('profile-avatar').innerText = visualUsername.charAt(0);
+                
+                alert("🔒 Secure Profile Associated Successfully. Global Matchmaking Enabled!");
+            } else if (action === 'logout') {
+                document.getElementById('auth-logged-in').style.display = 'none';
+                document.getElementById('auth-logged-out').style.display = 'block';
+                document.getElementById('player-email').value = '';
+                document.getElementById('player-password').value = '';
+            }
+        }
+
+        // VIEW SWAPPING LOGIC
+        function switchView(viewId, element) {
+            $('.view-section').removeClass('active');
+            $('.nav-item').removeClass('active');
+            $('#' + viewId).addClass('active');
+            $(element).addClass('active');
+            if(viewId === 'play-view' && board !== null) { board.resize(); }
+        }
+
+        // THEME MANAGEMENT 
         function toggleTheme() {
             const htmlNode = document.documentElement;
             const currentTheme = htmlNode.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
             htmlNode.setAttribute('data-theme', newTheme);
-            
-            // Update Toggle Button UI Text and Icons
-            const iconEl = document.getElementById('theme-icon');
-            const textEl = document.getElementById('theme-text');
-            
-            if (newTheme === 'light') {
-                iconEl.innerText = '🌙';
-                textEl.innerText = 'Dark Mode';
-            } else {
-                iconEl.innerText = '☀️';
-                textEl.innerText = 'Light Mode';
-            }
+            document.getElementById('theme-icon').innerText = newTheme === 'light' ? '🌙' : '☀️';
+            document.getElementById('theme-text').innerText = newTheme === 'light' ? 'Dark Mode' : 'Light Mode';
         }
 
-        function switchView(viewId, element) {
-            $('.view-section').removeClass('active');
-            $('.nav-item').removeClass('active');
-            
-            $('#' + viewId).addClass('active');
-            $(element).addClass('active');
-            
-            if(viewId === 'play-view' && board !== null) {
-                board.resize();
-            }
-        }
-
-        // CHESS LOGIC INTEGRATION CORE
-        function onDragStart (source, piece, position, orientation) {
-            if (game.game_over()) return false;
-            if (piece.search(/^b/) !== -1) return false;
-        }
-
-        function onDrop (source, target) {
-            var move = game.move({
-                from: source,
-                to: target,
-                promotion: 'q'
-            });
-
-            if (move === null) return 'snapback';
-            window.setTimeout(makeAutomatedOpponentMove, 250);
-        }
-
-        function makeAutomatedOpponentMove () {
-            var possibleMoves = game.moves();
-            if (possibleMoves.length === 0) {
-                processGameCompletionMetrics();
-                return;
-            }
-
-            var randomIdx = Math.floor(Math.random() * possibleMoves.length);
-            game.move(possibleMoves[randomIdx]);
-            board.position(game.fen());
-            
-            if(game.game_over()) {
-                processGameCompletionMetrics();
-            }
-        }
-
-        function onSnapEnd () {
-            board.position(game.fen());
-        }
-
-        function resetLiveGame() {
-            game.reset();
-            board.start();
-        }
-
-        // PROGRESS EVALUATION ENGINE MATRIX
-        function processGameCompletionMetrics() {
-            if(completedGamesCount < 10) {
-                completedGamesCount++;
-                document.getElementById('game-counter-ui').innerText = completedGamesCount;
-                let percent = (completedGamesCount / 10) * 100;
-                document.getElementById('progress-bar-fill').style.width = percent + "%";
-                
-                if(completedGamesCount === 10) {
-                    alert("🎉 10-Game Styling Evaluation Complete! Day 2 Infiltration nodes are now synthesizing within your Trajectory Tree profile.");
-                }
-            }
-        }
-
-        // AUDIO CONTROLS
-        let streamingState = false;
-        function toggleSystemTrack(type) {
-            const audioNode = document.getElementById('synthetic-audio-node');
-            if(!streamingState) {
-                audioNode.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-                audioNode.play().catch(e => console.log("Audio focus requirement error"));
-                streamingState = true;
-                alert("🔊 Concentration Wave Channel Open.");
-            } else {
-                audioNode.pause();
-                streamingState = false;
-            }
-        }
-
-        function loadUserAudio(inputElement) {
-            const file = inputElement.files[0];
-            if(file) {
-                const url = URL.createObjectURL(file);
-                const audioNode = document.getElementById('synthetic-audio-node');
-                audioNode.src = url;
-                audioNode.play();
-                document.getElementById('file-status-monitor').innerText = "Playing Custom File: " + file.name;
-            }
-        }
-
-        // RUN DIRECT BOARD INSTANTIATION
+        // BOARD CHESS RUNNER INITIALIZER
         var config = {
             draggable: true,
             position: 'start',
-            onDragStart: onDragStart,
-            onDrop: onDrop,
-            onSnapEnd: onSnapEnd,
             pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
         };
         board = Chessboard('pawn-board', config);
